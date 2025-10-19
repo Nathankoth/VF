@@ -19,6 +19,38 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
 export interface Database {
   public: {
     Tables: {
+      profiles: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          full_name: string | null
+          bio: string | null
+          avatar_url: string | null
+          role: 'user' | 'admin'
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          full_name?: string | null
+          bio?: string | null
+          avatar_url?: string | null
+          role?: 'user' | 'admin'
+          user_id: string
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          full_name?: string | null
+          bio?: string | null
+          avatar_url?: string | null
+          role?: 'user' | 'admin'
+          user_id?: string
+        }
+      }
       properties: {
         Row: {
           id: string
@@ -116,6 +148,38 @@ export interface Database {
           property_id?: string
           analysis_data?: any
           user_id?: string
+        }
+      }
+      waitlist: {
+        Row: {
+          id: string
+          created_at: string
+          name: string | null
+          email: string
+          role: string | null
+          source: string | null
+          referrer: string | null
+          meta: any | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          name?: string | null
+          email: string
+          role?: string | null
+          source?: string | null
+          referrer?: string | null
+          meta?: any | null
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          name?: string | null
+          email?: string
+          role?: string | null
+          source?: string | null
+          referrer?: string | null
+          meta?: any | null
         }
       }
     }

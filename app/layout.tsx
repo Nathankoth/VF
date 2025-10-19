@@ -4,6 +4,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { PageTransitionProvider } from '@/components/providers/page-transition-provider'
+import { AuthProvider } from '@/components/providers/auth-provider'
 import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -86,16 +87,24 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <QueryProvider>
-            <TooltipProvider>
-              <PageTransitionProvider>
-                {children}
-              </PageTransitionProvider>
-              <Toaster />
-              <Sonner />
-            </TooltipProvider>
-          </QueryProvider>
+          <AuthProvider>
+            <QueryProvider>
+              <TooltipProvider>
+                <PageTransitionProvider>
+                  {children}
+                </PageTransitionProvider>
+                <Toaster />
+                <Sonner />
+              </TooltipProvider>
+            </QueryProvider>
+          </AuthProvider>
         </ThemeProvider>
+        {/* VistaForge Waitlist Integration */}
+        <script 
+          src="/waitlist-integration.js" 
+          async
+          data-waitlist-config='{"debug": false, "showMessages": true}'
+        />
       </body>
     </html>
   )

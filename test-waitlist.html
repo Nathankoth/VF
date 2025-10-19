@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VistaForge Waitlist Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #007acc;
+        }
+        .success { border-left-color: #28a745; }
+        .error { border-left-color: #dc3545; }
+        .warning { border-left-color: #ffc107; }
+        button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 5px;
+        }
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 VistaForge Waitlist Integration Test</h1>
+    
+    <div class="test-section warning">
+        <h3>⚠️ Database Setup Required</h3>
+        <p>Before testing, you need to create the waitlist table in your Supabase database:</p>
+        <ol>
+            <li>Go to your <a href="https://supabase.com/dashboard" target="_blank">Supabase Dashboard</a></li>
+            <li>Navigate to your project: <code>vhugicmqspbuytqqimnx</code></li>
+            <li>Go to SQL Editor</li>
+            <li>Run the migration from <code>supabase/migrations/001_create_waitlist_table.sql</code></li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h3>🔧 Manual API Test</h3>
+        <p>Test the waitlist API directly:</p>
+        <input type="email" id="testEmail" placeholder="test@example.com" value="test@example.com">
+        <input type="text" id="testName" placeholder="Test User" value="Test User">
+        <button onclick="testAPI()">Test API</button>
+        <div id="apiResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>🎯 Integration Test</h3>
+        <p>Test the automatic integration with mock buttons:</p>
+        <button class="cta-signup">Get Started</button>
+        <button class="signup-button">Sign Up</button>
+        <button data-waitlist-cta>Join Waitlist</button>
+        
+        <form class="signup-form" style="margin-top: 20px;">
+            <input type="email" placeholder="Enter your email" value="integration@example.com">
+            <button type="submit">Submit Form</button>
+        </form>
+    </div>
+
+    <div class="test-section">
+        <h3>📊 Test Results</h3>
+        <div id="testLog" class="log"></div>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <!-- Include the waitlist integration script -->
+    <script src="/waitlist-integration.js"></script>
+    
+    <script>
+        // Test logging
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('testLog');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+            logDiv.appendChild(logEntry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('testLog').innerHTML = '';
+        }
+
+        // Test API directly
+        async function testAPI() {
+            const email = document.getElementById('testEmail').value;
+            const name = document.getElementById('testName').value;
+            const resultDiv = document.getElementById('apiResult');
+            
+            log(`Testing API with email: ${email}`);
+            
+            try {
+                const response = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        name: name,
+                        source: 'test_page'
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.ok) {
+                    log(`✅ API Success: ${result.message}`, 'success');
+                    resultDiv.innerHTML = `<div style="color: green;">✅ ${result.message}</div>`;
+                } else {
+                    log(`❌ API Error: ${result.error}`, 'error');
+                    resultDiv.innerHTML = `<div style="color: red;">❌ ${result.error}</div>`;
+                }
+            } catch (error) {
+                log(`❌ Network Error: ${error.message}`, 'error');
+                resultDiv.innerHTML = `<div style="color: red;">❌ Network Error: ${error.message}</div>`;
+            }
+        }
+
+        // Override console.log to capture waitlist logs
+        const originalLog = console.log;
+        console.log = function(...args) {
+            if (args[0] && args[0].includes && args[0].includes('[VistaForge Waitlist]')) {
+                log(args.join(' '), 'waitlist');
+            }
+            originalLog.apply(console, args);
+        };
+
+        // Test integration on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Page loaded, testing integration...');
+            
+            // Check if waitlist integration is loaded
+            if (window.VistaForgeWaitlist) {
+                log('✅ Waitlist integration loaded successfully', 'success');
+            } else {
+                log('❌ Waitlist integration not found', 'error');
+            }
+        });
+
+        // Test form submission
+        document.querySelector('.signup-form').addEventListener('submit', function(e) {
+            log('Form submission intercepted');
+        });
+
+        // Test button clicks
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                log(`Button clicked: ${this.textContent || this.className}`);
+            });
+        });
+    </script>
+</body>
+</html>
