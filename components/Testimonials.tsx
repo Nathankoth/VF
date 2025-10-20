@@ -29,14 +29,6 @@ const Testimonials = () => {
       <div className="absolute inset-0 cosmic-grid opacity-20"></div>
       
       <div className="max-w-7xl mx-auto space-y-16 relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
-            Trusted by Real Estate Professionals Worldwide
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            From independent investors to global property firms, VistaForge empowers smarter real estate decisions
-          </p>
-        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
