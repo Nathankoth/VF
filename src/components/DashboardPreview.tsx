@@ -28,18 +28,6 @@ const DashboardPreview = () => {
   return (
     <section id="dashboard" className="w-full py-20 px-6 md:px-12">
       <div className="max-w-7xl mx-auto space-y-16">
-        <div 
-          className={`text-center space-y-4 max-w-3xl mx-auto transition-all duration-700 transform ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter">
-            Intuitive task management interface
-          </h2>
-          <p className="text-cosmic-muted text-lg">
-            A powerful dashboard that adapts to how your team works
-          </p>
-        </div>
         
         <div 
           className={`cosmic-glow relative rounded-xl overflow-hidden border border-white/10 backdrop-blur-sm bg-cosmic-darker/70 shadow-[0_0_15px_rgba(203,255,77,0.15)] transition-all duration-1000 delay-300 ${
