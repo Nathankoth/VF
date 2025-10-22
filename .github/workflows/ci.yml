@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Lint
+        run: npm run lint --if-present
+        
+      - name: Typecheck
+        run: npm run typecheck --if-present
+        
+      - name: Run tests
+        run: npm test --if-present
+        
+      - name: Build
+        run: npm run build
+        
+      - name: Secret scan (gitleaks)
+        uses: zricethezav/gitleaks-action@v2
+        with:
+          args: detect --source . --verbose
+          
+      - name: Check for exposed secrets
+        run: |
+          echo "Checking for potential secrets in codebase..."
+          if grep -r -i "sk_live_\|pk_live_\|sk_test_\|pk_test_\|sk_\|pk_\|eyJ" --exclude-dir=node_modules --exclude-dir=.git --exclude="*.md" .; then
+            echo "❌ Potential secrets found in codebase!"
+            exit 1
+          else
+            echo "✅ No obvious secrets found in codebase"
+          fi
+          
+      - name: Security audit
+        run: npm audit --audit-level moderate

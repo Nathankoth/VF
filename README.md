@@ -1,4 +1,69 @@
-# VistaForge Frontend
+# VistaForge (Lovable.ai waiting-list) — Repo Setup & Deploy Guide
+
+This repo bundle contains recommended configuration and helper files to safely use a cloned Lovable.ai waiting-list UI with Supabase and deploy on Vercel.
+
+## 🔒 Security Features
+
+- **Secret Scanning**: Automated detection of exposed API keys and secrets
+- **Rate Limiting**: Built-in protection against abuse
+- **Input Validation**: Comprehensive sanitization of user inputs
+- **Secure Headers**: Security headers for XSS, CSRF, and clickjacking protection
+- **Environment Variables**: Proper separation of secrets from code
+
+## 🚀 Quick Start (Local Development)
+
+1. **Clone and setup**:
+   ```bash
+   git clone <your-repo-url>
+   cd waitlist
+   ```
+
+2. **Create environment file**:
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your actual values
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+4. **Start development server**:
+   ```bash
+   npm run dev
+   ```
+
+## 🚀 Deploy to Vercel
+
+1. **Import repo in Vercel**:
+   - Go to Vercel dashboard → New Project → Import GitHub repo
+   - Select your repository
+
+2. **Add environment variables**:
+   - In Vercel dashboard → Project Settings → Environment Variables
+   - Add all variables from `.env.example`
+
+3. **Deploy**:
+   - Vercel will automatically use the `build` script from `package.json`
+
+## 🔧 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+- `npm run typecheck` - Run TypeScript type checking
+- `npm run test` - Run tests
+- `npm run audit` - Security audit
+
+## 🛡️ Security Notes
+
+- **Never commit `.env` files** - Use `.env.local` for local development
+- **Rotate any keys** that may have been exposed in Git history
+- **Use serverless API routes** for operations requiring Supabase `service_role` key
+- **Keep secrets in Vercel environment variables**, not in code
+
+## 📁 Project Structure
 
 This is the **frontend-only** repository for VistaForge, an AI-powered real estate visualization platform. The backend services (authentication, database, APIs) are handled by **Supabase**.
 

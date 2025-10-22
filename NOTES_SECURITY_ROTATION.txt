@@ -1,0 +1,48 @@
+# Security Rotation Guide
+
+If you discovered an exposed secret in Git history:
+
+## 🚨 Immediate Actions
+
+1. **Rotate the secret at the provider immediately**:
+   - Supabase: Go to Project Settings → API → Regenerate keys
+   - Stripe: Go to Developers → API keys → Regenerate
+   - OpenAI: Go to API keys → Delete and create new
+   - Any other service: Follow their key rotation process
+
+2. **Rewrite Git history to remove the secret**:
+   ```bash
+   # Install git-filter-repo
+   pip install git-filter-repo
+   
+   # Create a mirror clone
+   git clone --mirror https://github.com/yourname/yourrepo.git repo-mirror.git
+   cd repo-mirror.git
+   
+   # Replace the secret with redacted text
+   git filter-repo --replace-text <(printf "SECRET_VALUE==>***REDACTED***\n")
+   
+   # Force push the cleaned history
+   git push --force --all
+   git push --force --tags
+   ```
+
+3. **Update environment variables**:
+   - Update Vercel environment variables with new keys
+   - Update local `.env.local` files
+   - Verify all deployments use new keys
+
+## 🔍 Prevention
+
+- Use `.env.example` for template values only
+- Never commit real secrets
+- Use secret scanning in CI/CD
+- Regular security audits
+- Rotate keys periodically
+
+## 📞 Emergency Contacts
+
+If you need help with security issues:
+- GitHub Security: https://github.com/security
+- Vercel Support: https://vercel.com/support
+- Supabase Support: https://supabase.com/support
