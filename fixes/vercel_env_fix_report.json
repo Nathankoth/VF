@@ -34,11 +34,16 @@
   ],
   "required_actions": [
     {
-      "action": "Create Vercel secrets",
+      "action": "Set Vercel environment variables",
+      "supabase_url": "https://blwcbwzhjhmrkadndmip.supabase.co",
       "commands": [
-        "vercel secrets add vite_supabase_url \"https://your-project.supabase.co\"",
-        "vercel secrets add vite_supabase_anon_key \"your_anon_key_here\""
+        "vercel env add VITE_SUPABASE_URL production",
+        "vercel env add VITE_SUPABASE_ANON_KEY production"
       ],
+      "values": {
+        "VITE_SUPABASE_URL": "https://blwcbwzhjhmrkadndmip.supabase.co",
+        "VITE_SUPABASE_ANON_KEY": "[Get from Supabase project settings]"
+      },
       "alternative": "Set environment variables directly in Vercel dashboard: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY"
     },
     {
