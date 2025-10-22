@@ -2,7 +2,7 @@
 
 ## Your Supabase Configuration
 - **Project URL**: `https://blwcbwzhjhmrkadndmip.supabase.co`
-- **Anon Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJsd2Nid3poamhtcmthZG5kbWlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA5OTQwNTcsImV4cCI6MjA3NjU3MDA1N30._u7rwYxZsyHykkyEeNssIyFTfAFKwIdyjAFuyA9gUsE`
+- **Anon Key**: `<LEAKED_SECRET_REDACTED>`
 
 ## Vercel Environment Variables to Set
 
@@ -14,7 +14,7 @@
 | Name | Value |
 |------|-------|
 | `VITE_SUPABASE_URL` | `https://blwcbwzhjhmrkadndmip.supabase.co` |
-| `VITE_SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJsd2Nid3poamhtcmthZG5kbWlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA5OTQwNTcsImV4cCI6MjA3NjU3MDA1N30._u7rwYxZsyHykkyEeNssIyFTfAFKwIdyjAFuyA9gUsE` |
+| `VITE_SUPABASE_ANON_KEY` | `<LEAKED_SECRET_REDACTED>` |
 
 ### Option 2: Vercel CLI
 ```bash
@@ -29,7 +29,7 @@ vercel env add VITE_SUPABASE_URL production
 # Enter: https://blwcbwzhjhmrkadndmip.supabase.co
 
 vercel env add VITE_SUPABASE_ANON_KEY production
-# Enter: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJsd2Nid3poamhtcmthZG5kbWlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA5OTQwNTcsImV4cCI6MjA3NjU3MDA1N30._u7rwYxZsyHykkyEeNssIyFTfAFKwIdyjAFuyA9gUsE
+# Enter: <LEAKED_SECRET_REDACTED>
 
 # Also set for preview environment
 vercel env add VITE_SUPABASE_URL preview
