@@ -25,8 +25,8 @@ echo "🔐 Setting up environment variables..."
 if [ ! -f .env.local ]; then
     cat > .env.local << EOF
 # Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=https://vhugicmqspbuytqqimnx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZodWdpY21xc3BidXl0cXFpbW54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc4MTAxNDUsImV4cCI6MjA3MzM4NjE0NX0.DXnRmusOZqKDd6K458MMQFzGkN5cmkN4v2V18s3FDZM
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url_here
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 
 # OpenAI API (for backend use only)
 OPENAI_API_KEY=your_openai_api_key_here
